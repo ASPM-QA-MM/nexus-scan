@@ -1,0 +1,35 @@
+name: gh_build_publish
+ 
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write 
+  contents: read
+  
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      # - name: Compile Code
+      #   run: echo "Compiling..."
+
+      # - name: Produce Binary
+      #   run: sleep 10
+
+      # - name: Push binary
+      #   run: echo "Pushing Binary to ECR..."
+
+      # - name: configure aws credentials
+      #   uses: aws-actions/configure-aws-credentials@v5.0.0
+      #   with:
+      #     role-to-assume: arn:aws:iam::020229604682:role/preprod-cloudbees-infra-mgmt
+      #     aws-region: us-east-1
+
+      - name: Register Build Artifact
+        uses: cloudbees-io-gha/register-build-artifact@v3
+        with:
+          name: "nexus-GHA"
+          version: "tagGha"
+          url: "http://nexusoss.saas-preprod.beescloud.com"
+          cloudbees-url: "https://api.saas-preprod.beescloud.com"      
